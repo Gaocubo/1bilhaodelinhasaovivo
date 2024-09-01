@@ -1,5 +1,15 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python
+## Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
+
+# Arquivo full
+.DS_Store
+
+# Arquivo full
+.tmp
+measurements1M.txt
+measurements10M.txt
+measurements100M.txt
+measurements.txt
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -174,3 +184,5 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# Generated using ignr.py - github.com/Antrikshy/ignr.py
