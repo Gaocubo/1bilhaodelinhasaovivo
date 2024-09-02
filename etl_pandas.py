@@ -1,19 +1,18 @@
-#%%
 import pandas as pd
 from multiprocessing import Pool, cpu_count
 from tqdm import tqdm  # importa o tqdm para barra de progresso
-#%%s
+
 CONCURRENCY = cpu_count()
 
 total_linhas = 1_000_000_000  # Total de linhas conhecido
 chunksize = 100_000_000  # Define o tamanho do chunk
 filename = "data/measurements.txt"  # Certifique-se de que este é o caminho correto para o arquivo
-#%%
+
 def process_chunk(chunk):
     # Agrega os dados dentro do chunk usando Pandas
     aggregated = chunk.groupby('station')['measure'].agg(['min', 'max', 'mean']).reset_index()
     return aggregated
-#%%
+
 def create_df_with_pandas(filename, total_linhas, chunksize=chunksize):
     total_chunks = total_linhas // chunksize + (1 if total_linhas % chunksize else 0)
     results = []
@@ -27,9 +26,9 @@ def create_df_with_pandas(filename, total_linhas, chunksize=chunksize):
                 results.append(result)
 
             results = [result.get() for result in results]
-#%%
+
     final_df = pd.concat(results, ignore_index=True)
-#%%
+
     final_aggregated_df = final_df.groupby('station').agg({
         'min': 'min',
         'max': 'max',
@@ -37,7 +36,7 @@ def create_df_with_pandas(filename, total_linhas, chunksize=chunksize):
     }).reset_index().sort_values('station')
 
     return final_aggregated_df
-#%%
+
 if __name__ == "__main__":
     import time
 
